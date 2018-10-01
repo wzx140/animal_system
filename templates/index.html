@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>动物识别专家系统</title>
+</head>
+<body>
+<h1 align="center">动物识别专家系统</h1>
+<br>
+<big>
+    <center><label for="feature">特征：</label><textarea id="feature" rows="1" cols="100"></textarea></center>
+</big>
+<center><input type="checkbox" id="display" checked="checked"/> 展示推理过程</center>
+<br>
+<center>
+    <button type="button" id="bt">提交</button>
+</center>
+<br>
+<br>
+<center><em>每个特征之间用单个空白符相隔，请使用完整特征</em></center>
+<center><em>如：蹄类->有蹄类，暗斑->暗斑点，x->x类(如 鸟->鸟类)，黑白->黑白色</em></center>
+<br>
+<center><img src="{{url_for('static', filename='img.jpg')}}"/></center>
+<script type="text/javascript" src="{{url_for('static', filename='jquery-3.3.1.min.js')}}" charset="UTF-8"></script>
+<script type="text/javascript" charset="UTF-8">
+$(document).ready(function() {
+    $("#bt").click(function() {
+        sid = $("#display").is(':checked')
+        text = $("#feature").val()
+        if (text.length == 0) {
+            alert('不能为空');
+        }else{
+            if (sid == true){
+                dis = "true"
+            }else{
+                dis = "false"
+            }
+            $.ajax({
+                url: "/infer",
+                data: {
+                    q: text,
+                    display: dis
+                },
+                success : function(data) {
+                    alert(data);
+                }
+            });
+        }
+    });
+});
+</script>
+</body>
+</html>
