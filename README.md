@@ -8,3 +8,5 @@
 ```python system.py```本地控制台打开
 
 ![](static/img.jpg)
+脚本主要就是拓扑排序
+![](mind.jpg)
